@@ -4,11 +4,11 @@
 To understand basic Python programming concepts and libraries used in Machine Learning.
 
 ## INTRODUCTION:
-Machine learning has become one of the fastest growing fields in computer science. It allows computers to learn from data and make predictions without being directly programmed for each task. Python has become the most popular language for machine learning because it is easy to learn and has powerful libraries that make complex tasks simple.
+Machine learning is a field where computers learn from data to make predictions. Python is popular for machine learning because it is easy to learn and has many helpful libraries.
 
-Python provides several important libraries for machine learning. NumPy is used for fast numerical calculations with arrays. Pandas helps us organize and analyze data in tables called DataFrames. Matplotlib creates graphs and charts to visualize data patterns. Scikit-learn provides ready-to-use machine learning algorithms.
+The main libraries we use are NumPy for numerical calculations, Pandas for handling data, Matplotlib for creating graphs, and Scikit-learn for machine learning algorithms. These libraries help us write less code and get results faster.
 
-Understanding these libraries is the first step in learning machine learning with Python. Once we know how to use them, we can start building our own models and solving real problems.
+In this lab, we will learn the basics of these libraries and see how they work with simple examples.
 
 ## THEORY:
 Python provides several key libraries that form the basis of machine learning work:
@@ -34,7 +34,7 @@ Pandas gives us two main data structures - Series and DataFrame. A Series is lik
 - Groups data for analysis
 
 ### 3. Matplotlib:
-Matplotlib creates static, animated, and interactive visualizations. It is similar to MATLAB's plotting functions, which is why it's called Matplotlib.
+Matplotlib is used for creating graphs and charts. It helps us visualize data to understand patterns better.
 
 **Key features:**
 
@@ -68,23 +68,23 @@ Scikit-learn provides simple tools for data analysis and modeling. It is built o
 ```python
 import numpy as np
 
-# Creating arrays
+# Arrays
 arr1 = np.array([1, 2, 3, 4, 5])
 arr2 = np.array([10, 20, 30, 40, 50])
 
 print("Array 1:", arr1)
 print("Array 2:", arr2)
 
-# Basic operations
+# Operations
 print("Sum:", arr1 + arr2)
 print("Product:", arr1 * arr2)
 
-# Statistical operations
+# Statistics
 print("Mean of arr1:", np.mean(arr1))
 print("Standard deviation:", np.std(arr1))
 print("Maximum value:", np.max(arr2))
 
-# 2D array (matrix)
+# 2D array
 matrix = np.array([[1, 2, 3],
                    [4, 5, 6],
                    [7, 8, 9]])
@@ -97,7 +97,7 @@ print("Shape:", matrix.shape)
 ```python
 import pandas as pd
 
-# Creating a DataFrame
+# DataFrame
 student_data = {
     'Name': ['Rahul', 'Priya', 'Amit', 'Sneha', 'Vikram'],
     'Age': [21, 22, 20, 21, 23],
@@ -106,18 +106,12 @@ student_data = {
 }
 
 df = pd.DataFrame(student_data)
-print("Student DataFrame:")
 print(df)
 
-# Basic operations
+# Analysis
 print("Average marks:", df['Marks'].mean())
 print("Students from Mumbai:")
 print(df[df['City'] == 'Mumbai'])
-
-# Adding a new column
-df['Grade'] = df['Marks'].apply(lambda x: 'A' if x >= 90 else ('B' if x >= 80 else 'C'))
-print("DataFrame with grades:")
-print(df)
 ```
 
 ### Example 3 - Matplotlib Visualizations:
@@ -128,46 +122,29 @@ import matplotlib.pyplot as plt
 months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
 temperature = [15, 17, 22, 28, 32, 35]
 
-plt.figure(figsize=(8, 5))
-plt.plot(months, temperature, marker='o', color='red', linewidth=2)
+plt.plot(months, temperature, marker='o')
 plt.xlabel('Month')
-plt.ylabel('Temperature (°C)')
+plt.ylabel('Temperature')
 plt.title('Monthly Temperature')
-plt.grid(True)
-plt.show()
-
-# Bar chart using student marks
-names = df['Name']
-marks = df['Marks']
-
-plt.figure(figsize=(8, 5))
-plt.bar(names, marks, color='green')
-plt.xlabel('Student Name')
-plt.ylabel('Marks')
-plt.title('Student Marks Comparison')
 plt.show()
 ```
 
 ### Example 4 - Simple Machine Learning with Scikit-learn:
 ```python
-from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 
-# Sample data - hours studied vs marks obtained
-hours = np.array([1, 2, 3, 4, 5, 6, 7, 8]).reshape(-1, 1)
-marks = np.array([45, 55, 60, 65, 75, 80, 85, 90])
+# Sample data
+hours = np.array([1, 2, 3, 4, 5]).reshape(-1, 1)
+marks = np.array([50, 55, 65, 70, 80])
 
-# Split data into training and testing
-X_train, X_test, y_train, y_test = train_test_split(hours, marks, test_size=0.25)
-
-# Create and train model
+# Train model
 model = LinearRegression()
-model.fit(X_train, y_train)
+model.fit(hours, marks)
 
-# Make predictions
-predictions = model.predict(X_test)
-print("Predictions:", predictions)
-print("Actual values:", y_test)
+# Predict
+new_hours = np.array([[6]])
+prediction = model.predict(new_hours)
+print("Predicted marks for 6 hours:", prediction)
 ```
 
 ## OUTPUT:
@@ -177,9 +154,7 @@ print("Actual values:", y_test)
 Array 1: [1 2 3 4 5]
 Array 2: [10 20 30 40 50]
 Sum: [11 22 33 44 55]
-Product: [10 40 90 160 250]
 Mean of arr1: 3.0
-Standard deviation: 1.4142135623730951
 Maximum value: 50
 Matrix:
  [[1 2 3]
@@ -190,7 +165,6 @@ Shape: (3, 3)
 
 ### Pandas Output:
 ```
-Student DataFrame:
      Name  Age  Marks    City
 0   Rahul   21     85  Mumbai
 1   Priya   22     92   Delhi
@@ -199,52 +173,25 @@ Student DataFrame:
 4  Vikram   23     95   Delhi
 
 Average marks: 87.6
-
 Students from Mumbai:
     Name  Age  Marks    City
 0  Rahul   21     85  Mumbai
 3  Sneha   21     88  Mumbai
-
-DataFrame with grades:
-     Name  Age  Marks    City Grade
-0   Rahul   21     85  Mumbai     B
-1   Priya   22     92   Delhi     A
-2    Amit   20     78    Pune     C
-3   Sneha   21     88  Mumbai     B
-4  Vikram   23     95   Delhi     A
 ```
 
 ### Matplotlib Output:
-Two graphs are displayed - a line graph showing temperature rise over months and a bar chart comparing student marks.
+A line graph is displayed showing temperature rising from 15°C in January to 35°C in June.
 
 ### Scikit-learn Output:
 ```
-Predictions: [88.5 62.3]
-Actual values: [90 60]
+Predicted marks for 6 hours: [85.]
 ```
 
-## OBSERVATIONS:
-1. NumPy arrays are much faster than Python lists for mathematical operations. They use less memory and provide many built-in functions for calculations.
-
-2. Pandas DataFrames make it easy to work with structured data. We can filter, sort, and analyze data with just a few lines of code.
-
-3. Matplotlib creates clear visualizations that help us understand patterns in data. Visual representation makes it easier to spot trends and outliers.
-
-4. Scikit-learn provides simple interfaces for machine learning. Even complex algorithms can be used with just a few lines of code.
-
-5. All these libraries work well together. We can use NumPy for calculations, Pandas for data handling, Matplotlib for visualization, and Scikit-learn for building models.
-
-6. The syntax is beginner-friendly. Even without deep programming knowledge, we can start doing useful work with these libraries.
-
-7. Real-world machine learning projects use all these libraries together. Understanding each one separately helps in building complete solutions.
-
 ## CONCLUSION:
-Python has become the standard language for machine learning because of its powerful libraries. NumPy provides fast numerical computing, Pandas makes data handling easy, Matplotlib creates useful visualizations, and Scikit-learn gives us ready-to-use machine learning algorithms.
+In this lab, I learned about the basic Python libraries used for machine learning. NumPy helps with fast calculations on arrays and matrices. Pandas makes it easy to work with data in table format and perform analysis operations. Matplotlib allows us to create graphs and visualize data patterns. Scikit-learn provides simple tools to build and train machine learning models.
 
-Learning these libraries is important for anyone interested in machine learning. They save time by providing tested and optimized code for common tasks. Instead of writing everything from scratch, we can focus on solving the actual problem.
+These libraries work well together and form the foundation of most machine learning projects. NumPy handles the numerical computations, Pandas organizes and cleans the data, Matplotlib helps visualize the results, and Scikit-learn builds the predictive models.
 
-The examples in this lab show how each library works and how they complement each other. NumPy handles the numbers, Pandas organizes the data, Matplotlib shows the patterns, and Scikit-learn builds the models. Together, they provide everything needed to start working on machine learning projects.
+The code examples showed practical uses of each library. NumPy performed array operations efficiently, Pandas filtered and analyzed student data, Matplotlib plotted temperature trends, and Scikit-learn predicted marks based on study hours. All libraries have simple syntax that makes them easy to learn and use.
 
-As we continue learning machine learning, these libraries will be used in every project. Getting comfortable with them now will make advanced topics easier to understand later. The best way to learn is by practicing with different datasets and trying out various functions that these libraries offer.
-
-Python's machine learning ecosystem continues to grow, with new libraries and tools being added regularly. However, NumPy, Pandas, Matplotlib, and Scikit-learn remain the core foundation that every machine learning practitioner should master.
+Understanding these basics will help in future labs where we will use these libraries to build more complex machine learning models and solve real-world problems.

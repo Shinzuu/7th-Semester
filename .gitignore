@@ -1,0 +1,31 @@
+# Python virtual environment
+venv/
+env/
+ENV/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Large data files
+ML/Lab/*/data/*.csv
+ML/Lab/*/playground-series-*/*.csv
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# LibreOffice lock files
+.~lock.*

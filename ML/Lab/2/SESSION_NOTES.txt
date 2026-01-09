@@ -1,0 +1,363 @@
+=============================================================================
+ML LAB 2 - DATA PREPROCESSING PROJECT
+Session Notes - January 9, 2026
+=============================================================================
+
+PROJECT STATUS: ✅ PREPROCESSING COMPLETE | ✅ REPORT GENERATED
+
+=============================================================================
+WHAT WE COMPLETED TODAY
+=============================================================================
+
+1. ✅ Created ML Lab 2 project structure
+2. ✅ Downloaded Kaggle Flood Prediction dataset (Playground Series S4E5)
+3. ✅ Saved preprocessing reference guide from Medium articles (Parts 1 & 2)
+4. ✅ Created and executed complete preprocessing pipeline
+5. ✅ Fixed Google Colab path issues
+6. ✅ Generated comprehensive LaTeX report with figure placeholders
+
+=============================================================================
+FOLDER STRUCTURE
+=============================================================================
+
+ML/Lab/2/
+├── code/
+│   ├── preprocessing.ipynb                    # Original local notebook
+│   ├── Lab2___Regression_with_a_Flood_Prediction_Dataset.ipynb  # MAIN FILE (Colab + Local)
+│   └── correlation_heatmap.png               # Feature correlation visualization
+├── data/
+│   ├── train_original.csv                    # Original training data (1,117,957 rows)
+│   ├── test_original.csv                     # Original test data
+│   ├── train_preprocessed.csv                # Scaled, ready for training (670,773 rows)
+│   ├── valid_preprocessed.csv                # Scaled, ready for validation (223,592 rows)
+│   └── test_preprocessed.csv                 # Scaled, ready for testing (223,592 rows)
+├── playground-series-s4e5/                   # Original Kaggle dataset folder
+├── venv/                                     # Python virtual environment
+├── preprocessing_steps_complete.md           # Reference guide (Medium articles)
+├── README.md                                 # Project documentation
+├── ML_Lab2_Report.tex                        # LaTeX report (NEEDS FIGURES)
+└── SESSION_NOTES.txt                         # This file
+
+=============================================================================
+KEY FILES TO REMEMBER
+=============================================================================
+
+**MAIN WORKING FILE:**
+- ML/Lab/2/code/Lab2___Regression_with_a_Flood_Prediction_Dataset.ipynb
+  → Works in both Google Colab and local Jupyter
+  → Contains all preprocessing steps with detailed comments
+  → Uses OBSERVATION → DECISION → REASON format
+
+**GOOGLE COLAB PATHS (in the notebook):**
+- Dataset: /content/drive/MyDrive/Dataset/playground-series-s4e5/train.csv
+- Output: /content/drive/MyDrive/Dataset/playground-series-s4e5/train_preprocessed.csv
+
+**LOCAL PATHS (commented out in notebook):**
+- Dataset: ../data/train_original.csv
+- Output: ../data/train_preprocessed.csv
+
+**LATEX REPORT:**
+- ML/Lab/2/ML_Lab2_Report.tex
+  → 10 figure placeholders marked as [FIGURE: Name]
+  → Need to add actual figures before compiling to PDF
+
+=============================================================================
+PREPROCESSING STEPS COMPLETED
+=============================================================================
+
+STEP 1: Data Exploration
+- Dataset: 1,117,957 rows × 22 columns
+- Target: FloodProbability (continuous, 0.285-0.725)
+- Features: 20 numerical features (integer scores 0-18)
+- All features are numerical, no categorical variables
+
+STEP 2: Missing Values Check
+OBSERVATION: 0 missing values found
+DECISION: No imputation needed
+REASON: Dataset is complete
+
+STEP 3: Duplicate Rows Check
+OBSERVATION: 0 duplicate rows found
+DECISION: No removal needed
+REASON: All rows are unique
+
+STEP 4: Outlier Detection (IQR Method)
+OBSERVATION: 19/20 features have outliers by IQR method
+DECISION: Keep all outliers (DO NOT REMOVE)
+REASON:
+  1. All values are valid domain scores (0-18)
+  2. "Outliers" are just high-severity events (domain knowledge)
+  3. Removing them would lose important flood prediction patterns
+
+STEP 5: Correlation Analysis
+OBSERVATION: No multicollinearity detected (all correlations < 0.9)
+DECISION: Keep all 20 features
+REASON: All features are independent and contribute to target
+
+STEP 6: Feature Selection
+OBSERVATION: All features show similar weak-to-moderate correlation (0.17-0.19)
+DECISION: Keep all 20 features
+REASON: No dominant features, all contribute equally
+
+STEP 7: Categorical Encoding
+OBSERVATION: All features are numerical
+DECISION: No encoding needed
+REASON: No categorical variables present
+
+STEP 8: Data Resampling
+OBSERVATION: This is a regression task (predict continuous FloodProbability)
+DECISION: No resampling needed
+REASON: Resampling is for classification imbalance, not regression
+
+STEP 9: Data Splitting
+DECISION: 60/20/20 split (train/valid/test)
+RESULT:
+  - Training: 670,773 samples (60%)
+  - Validation: 223,592 samples (20%)
+  - Test: 223,592 samples (20%)
+REASON: Standard split with separate validation for hyperparameter tuning
+
+STEP 10: Feature Scaling
+METHOD: StandardScaler (Z-score normalization)
+PROCESS:
+  1. Fit scaler on training data ONLY
+  2. Transform train, validation, and test sets
+  3. Split BEFORE scaling to prevent data leakage
+RESULT: All features normalized to mean=0, std=1
+
+=============================================================================
+IMPORTANT DECISIONS & JUSTIFICATIONS
+=============================================================================
+
+1. WHY WE KEPT OUTLIERS:
+   - Values 0-18 are severity scores, not measurement errors
+   - High scores represent extreme flood conditions
+   - These are exactly what we want to predict
+   - Domain knowledge > statistical methods
+
+2. WHY WE SPLIT BEFORE SCALING:
+   - Prevents data leakage
+   - Validation/test sets remain truly unseen
+   - Scaler fitted only on training data
+
+3. WHY NO FEATURE ENGINEERING:
+   - All features already meaningful (domain scores)
+   - No obvious feature combinations needed
+   - Keep it simple for initial baseline
+
+4. WHY 60/20/20 SPLIT:
+   - Large dataset allows generous validation set
+   - Need validation set for hyperparameter tuning
+   - Follows best practices
+
+=============================================================================
+LATEX REPORT - FIGURES NEEDED
+=============================================================================
+
+The report has 10 placeholder figures. You need to add:
+
+1. [FIGURE: Dataset Head] - Screenshot of df.head()
+2. [FIGURE: Dataset Info] - Screenshot of df.info()
+3. [FIGURE: Missing Values] - Screenshot of missing values check output
+4. [FIGURE: Duplicates] - Screenshot of duplicate check output
+5. [FIGURE: Outliers] - Screenshot of outlier detection results
+6. [FIGURE: Correlation Heatmap] - Use correlation_heatmap.png
+7. [FIGURE: Data Distribution] - Histogram or box plots of features
+8. [FIGURE: Split Visualization] - Bar chart showing train/valid/test sizes
+9. [FIGURE: Scaling Comparison] - Before/after scaling comparison
+10. [FIGURE: Final Summary] - Final preprocessed data summary
+
+Each placeholder shows location as: \label{fig:name}
+
+=============================================================================
+HOW TO CONTINUE TOMORROW
+=============================================================================
+
+OPTION 1: Run LaTeX Report (if needed)
+------------------------
+cd /home/shinzuu/Documents/7th\ Semester/ML/Lab/2
+pdflatex ML_Lab2_Report.tex
+pdflatex ML_Lab2_Report.tex  # Run twice for references
+
+Note: You need to add figures first! Replace [FIGURE: Name] placeholders.
+
+OPTION 2: Start Model Training
+-------------------------------
+# Activate environment
+cd /home/shinzuu/Documents/7th\ Semester/ML/Lab/2
+source venv/bin/activate
+
+# Start Jupyter
+jupyter notebook
+
+# Or use Google Colab with existing notebook
+# Data is ready at: /content/drive/MyDrive/Dataset/playground-series-s4e5/
+
+OPTION 3: Load Preprocessed Data for Modeling
+----------------------------------------------
+import pandas as pd
+
+# Load preprocessed data
+train = pd.read_csv('data/train_preprocessed.csv')
+valid = pd.read_csv('data/valid_preprocessed.csv')
+test = pd.read_csv('data/test_preprocessed.csv')
+
+# Separate features and target
+X_train = train.drop(['id', 'FloodProbability'], axis=1)
+y_train = train['FloodProbability']
+
+X_valid = valid.drop(['id', 'FloodProbability'], axis=1)
+y_valid = valid['FloodProbability']
+
+X_test = test.drop(['id', 'FloodProbability'], axis=1)
+y_test = test['FloodProbability']
+
+# Now ready for model training!
+
+=============================================================================
+NEXT STEPS (FOR TOMORROW)
+=============================================================================
+
+1. Add figures to LaTeX report and compile to PDF
+   - Take screenshots from notebook outputs
+   - Replace all 10 [FIGURE: Name] placeholders
+   - Run pdflatex twice
+
+2. Start Model Training Phase:
+   a. Choose models to try:
+      - Linear Regression (baseline)
+      - Random Forest Regressor
+      - Gradient Boosting (XGBoost/LightGBM)
+      - Neural Network (optional)
+
+   b. Training process:
+      - Train on train_preprocessed.csv
+      - Tune hyperparameters using valid_preprocessed.csv
+      - Final evaluation on test_preprocessed.csv
+
+   c. Metrics to track:
+      - Mean Absolute Error (MAE)
+      - Root Mean Squared Error (RMSE)
+      - R² Score
+      - Visualize predictions vs actual
+
+3. Update report with model results
+
+=============================================================================
+ENVIRONMENT INFORMATION
+=============================================================================
+
+Virtual Environment: ML/Lab/2/venv
+Python Packages Installed:
+  - pandas
+  - numpy
+  - matplotlib
+  - seaborn
+  - scikit-learn
+  - jupyter
+  - notebook
+  - ipykernel
+
+Activate: source venv/bin/activate
+Deactivate: deactivate
+
+=============================================================================
+GOOGLE COLAB SETUP
+=============================================================================
+
+If using Google Colab tomorrow:
+1. Mount Google Drive
+2. Dataset already at: /content/drive/MyDrive/Dataset/playground-series-s4e5/
+3. Open: Lab2___Regression_with_a_Flood_Prediction_Dataset.ipynb
+4. Preprocessed files saved in same location
+
+=============================================================================
+REFERENCE DOCUMENTS
+=============================================================================
+
+1. preprocessing_steps_complete.md - Complete guide from Medium articles
+2. README.md - Project overview and usage instructions
+3. Kaggle Competition: https://www.kaggle.com/competitions/playground-series-s4e5
+4. Medium Guide Part 1: https://medium.com/womenintechnology/data-preprocessing-steps-for-machine-learning-in-phyton-part-1-18009c6f1153
+
+=============================================================================
+ISSUES RESOLVED
+=============================================================================
+
+Issue #1: Google Colab OSError
+- Error: "Cannot save file into a non-existent directory: '../data'"
+- Fixed: Updated paths to /content/drive/MyDrive/Dataset/playground-series-s4e5/
+- Status: ✅ Resolved
+
+Issue #2: Dual Environment Support
+- Challenge: Same notebook for local + Colab
+- Solution: Added commented paths for both environments
+- Status: ✅ Resolved
+
+=============================================================================
+DATASET INFORMATION
+=============================================================================
+
+Name: Kaggle Playground Series S4E5 - Flood Prediction
+Task: Predict FloodProbability (continuous value)
+Size: 1,117,957 training samples
+Features: 20 flood-related factors (all numerical, 0-18 scale)
+Target: FloodProbability (0.285 to 0.725)
+Quality: Clean dataset - no missing values, no duplicates
+
+Features List:
+1. MonsoonIntensity          11. IneffectiveDisasterPreparedness
+2. TopographyDrainage        12. DrainageSystems
+3. RiverManagement           13. CoastalVulnerability
+4. Deforestation             14. Landslides
+5. Urbanization              15. Watersheds
+6. ClimateChange             16. DeterioratingInfrastructure
+7. DamsQuality               17. PopulationScore
+8. Siltation                 18. WetlandLoss
+9. AgriculturalPractices     19. InadequatePlanning
+10. Encroachments            20. PoliticalFactors
+
+=============================================================================
+COMMANDS CHEAT SHEET
+=============================================================================
+
+# Navigate to project
+cd "/home/shinzuu/Documents/7th Semester/ML/Lab/2"
+
+# Activate environment
+source venv/bin/activate
+
+# Start Jupyter
+jupyter notebook
+
+# Compile LaTeX
+pdflatex ML_Lab2_Report.tex
+
+# Check preprocessed files
+ls -lh data/*.csv
+
+# View correlation heatmap
+xdg-open code/correlation_heatmap.png
+
+=============================================================================
+STATUS SUMMARY
+=============================================================================
+
+✅ Project setup complete
+✅ Dataset downloaded and backed up
+✅ Virtual environment configured
+✅ Preprocessing pipeline executed
+✅ Data split and scaled (train/valid/test)
+✅ LaTeX report generated
+⏳ Figures need to be added to report
+⏳ Model training not started yet
+⏳ Final evaluation pending
+
+=============================================================================
+
+READY TO CONTINUE TOMORROW! 🚀
+
+All preprocessing work is complete and documented.
+Next session: Add figures to report and/or start model training.
+
+=============================================================================
